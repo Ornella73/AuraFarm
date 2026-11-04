@@ -1,0 +1,13 @@
+village_id,village_name,canton,prefecture,region,latitude,longitude,regime_pluviometrique,altitude_m,sol_dominant,culture_principale_1,culture_principale_2,langue_majoritaire
+TG_MAR_ZIO_01,Davié,Davié,Zio,Maritime,6.4325,1.2136,bimodal,52,ferrallitique_terre_de_barre,mais,niebe,ewe
+TG_MAR_LAC_02,Glidji,Glidji,Lacs,Maritime,6.2344,1.6012,bimodal,15,sablo_littoral,mais,niebe,mina
+TG_MAR_YOT_03,Ahépé,Ahépé,Yoto,Maritime,6.5821,1.5034,bimodal,68,ferrallitique_argileux,mais,niebe,ewe
+TG_PLA_HAH_01,Alinou,Notsé,Haho,Plateaux,6.9532,1.1685,bimodal,145,ferrugineux_profond,mais,niebe,ewe
+TG_PLA_OGO_02,Datcha,Datcha,Ogou,Plateaux,7.5312,1.1345,bimodal,210,ferrugineux_lessive,mais,sorgho,ewe
+TG_PLA_KLO_03,Agou-Nyogbo,Agou,Kloto,Plateaux,6.8978,0.6341,bimodal,320,ferrallitique_humifere,mais,niebe,ewe
+TG_CEN_TCH_01,Komah,Sokodé,Tchaoudjo,Centrale,8.9834,1.1378,transition_unimodal,340,ferrugineux_concretionne,mais,sorgho,kabiye
+TG_CEN_SOT_02,Adjengré,Adjengré,Sotouboua,Centrale,8.5621,0.9845,transition_unimodal,290,ferrugineux_tropical,mais,sorgho,kabiye
+TG_KAR_KOZ_01,Lama,Kara,Kozah,Kara,9.5489,1.1892,unimodal,325,ferrugineux_sur_socle,sorgho,mais,kabiye
+TG_KAR_BAS_02,Kabou,Kabou,Bassar,Kara,9.2514,0.7812,unimodal,260,ferrugineux_gravillonnaire,sorgho,niebe,kabiye
+TG_SAV_TON_01,Kantindi,Kantindi,Tône,Savanes,10.8632,0.2145,unimodal,310,sablo_limoneux_sahélien,sorgho,niebe,kabiye
+TG_SAV_OTI_02,Gando,Gando,Oti,Savanes,10.3587,0.4721,unimodal,140,vertique_hydromorphe,sorgho,mais,kabiye

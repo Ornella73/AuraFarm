@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  aurafarm-api:
+    build: .
+    container_name: aurafarm_app
+    ports:
+      - "8000:8000"
+    environment:
+      - AURAFARM_ENV=production
+      - DATA_FRESHNESS_MAX_HOURS=48
+      - DATABASE_URL=sqlite:///./data/aurafarm.db
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

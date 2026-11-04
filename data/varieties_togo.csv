@@ -1,0 +1,12 @@
+variety_id,crop_type,variety_name,cycle_days_min,cycle_days_max,cycle_days_nominal,water_req_mm,drought_tolerance,photoperiod_sensitive,grain_color,potential_yield_t_ha,source_organism,zones_recommandees,disponibilite_locale_defaut
+TZEE_W_SR,mais,TZEE-W-SR,80,85,82,380,tres_forte,false,blanc,3.5,ITRA_IITA,"Maritime,Plateaux,Centrale,Kara,Savanes",true
+Sotubaka,mais,Sotubaka,95,105,100,480,forte,false,blanc,4.5,ITRA,"Maritime,Plateaux,Centrale,Kara",true
+Ikenne,mais,Ikenne,95,105,100,470,forte,false,jaune,4.2,ITRA,"Maritime,Plateaux,Centrale",true
+TZB_SR,mais,TZB-SR,110,120,115,620,moyenne,false,blanc,5.5,ITRA_IITA,"Plateaux,Maritime",true
+EV8435_SR,mais,EV8435-SR,90,95,92,430,forte,false,blanc,4.0,ITRA,"Maritime,Plateaux,Centrale",true
+Sorvato_28,sorgho,Sorvato 28,105,115,110,390,tres_forte,false,blanc,2.8,ITRA,"Centrale,Kara,Savanes",true
+Chokwe,sorgho,Chokwe,120,135,128,450,forte,true,rouge,2.5,ITRA_ICRISAT,"Kara,Savanes",true
+Sahelien_Local,sorgho,Local Savanes,130,145,138,420,tres_forte,true,blanc,2.0,Variete_Paysanne,"Kara,Savanes",true
+TVx_3236,niebe,TVx 3236,65,75,70,280,tres_forte,false,blanc_oeil_noir,1.8,ITRA_IITA,"Maritime,Plateaux,Centrale,Kara,Savanes",true
+IT99K_573_1_1,niebe,IT99K-573-1-1,60,70,65,240,tres_forte,false,blanc,2.0,ITRA_IITA,"Centrale,Kara,Savanes",true
+TN_5_78,niebe,TN 5-78,75,85,80,330,forte,false,marron,1.6,ITRA,"Plateaux,Centrale,Kara",true
