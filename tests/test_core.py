@@ -106,3 +106,4 @@ def test_database_crud(tmp_path, monkeypatch):
     obs_list = get_recent_field_observations("TG_MAR_ZIO_01", limit=5)
     assert len(obs_list) == 1
     assert obs_list[0].rainfall_mm == 18.5
+

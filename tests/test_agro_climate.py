@@ -138,3 +138,4 @@ def test_precompute_pipeline_execution(tmp_path, monkeypatch, repo):
     assert sample is not None
     assert sample.village_name == "Davié"
     assert sample.alert_status in [AlertStatus.SEMER, AlertStatus.ATTENDRE]
+

@@ -121,3 +121,4 @@ AURAFARM/
 * **Minimisation stricte** : Aucun nom de famille n'est collecté.
 * **Pseudonymisation** : Hachage SHA-256 avec sel cryptographique de tous les numéros de téléphone.
 * **Consentement libre et éclairé** : Opt-in explicite dès le premier contact.
+

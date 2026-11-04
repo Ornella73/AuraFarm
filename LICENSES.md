@@ -73,3 +73,4 @@ Le projet AuraFarm valorise des sources de données ouvertes, institutionnelles 
   * *Organismes* : FAO (Organisation des Nations Unies pour l'Alimentation et l'Agriculture) / University of Manchester.
   * *Ressource* : Bibliothèque logicielle Python de modélisation de la productivité de l'eau des cultures.
   * *Licence* : LGPL-3.0 / GPL-3.0.
+

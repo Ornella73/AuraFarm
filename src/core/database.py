@@ -211,3 +211,4 @@ def get_freshness_status(source_name: str) -> Optional[Dict[str, Any]]:
         if row:
             return dict(row)
         return None
+

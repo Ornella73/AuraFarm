@@ -52,3 +52,4 @@ class FreshnessWatchdog:
             return AlertStatus.ATTENDRE_CONSULTER_AGENT, True, reason
 
         return proposed_alert, False, "Données météorologiques à jour."
+

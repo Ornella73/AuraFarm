@@ -183,3 +183,4 @@ class CropResilienceScorer:
             confidence = ConfidenceLevel.INCERTAIN
 
         return top.variety, confidence, top.suitability_explanation
+

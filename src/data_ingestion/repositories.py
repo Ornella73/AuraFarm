@@ -125,3 +125,4 @@ class SpatialRepository:
             if village.region.lower() in zones and v.disponibilite_locale_defaut:
                 candidates.append(v)
         return candidates
+

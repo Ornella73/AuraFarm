@@ -36,3 +36,4 @@ class Settings:
     TWILIO_CALLER_ID: str = os.getenv("TWILIO_CALLER_ID", "+22890000000")
 
 settings = Settings()
+

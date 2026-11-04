@@ -59,3 +59,4 @@ class SmsHandler:
         length = len(text)
         segments = 1 if length <= max_single else ((length - 1) // (max_single - 7)) + 1
         return encoding, max_single, segments
+

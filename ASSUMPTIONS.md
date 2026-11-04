@@ -92,3 +92,4 @@ Chaque conseil diffusé est qualifié par l'un des trois niveaux :
    * Lors du premier contact vocal : « Tapez 1 pour recevoir les alertes gratuites d’AuraFarm ».
    * Sur l’USSD : acceptation préalable des conditions de service.
 4. **Droit d'accès et de retrait** : Tout producteur peut se désinscrire gratuitement à tout moment via le menu USSD (« Option 9 : Se désinscrire ») ou par simple demande à son agent de vulgarisation.
+

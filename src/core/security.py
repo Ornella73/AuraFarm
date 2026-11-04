@@ -41,3 +41,4 @@ def mask_phone_number(phone: str) -> str:
         suffix = norm[-2:]
         return f"{prefix}••••{suffix}"
     return "••••••••"
+

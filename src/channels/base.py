@@ -38,3 +38,4 @@ class ChannelProvider(ABC):
         user_input: str
     ) -> UssdResponse:
         pass
+

@@ -107,3 +107,4 @@ class FieldRainObservation(BaseModel):
     rainfall_mm: float
     reporter_type: str = "farmer"  # "farmer" | "agent"
     reported_at: str
+

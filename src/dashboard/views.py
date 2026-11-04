@@ -656,3 +656,4 @@ def render_simulator_html() -> str:
     </script>
 </body>
 </html>"""
+
