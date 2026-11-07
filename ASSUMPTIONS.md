@@ -93,3 +93,46 @@ Chaque conseil diffusé est qualifié par l'un des trois niveaux :
    * Sur l’USSD : acceptation préalable des conditions de service.
 4. **Droit d'accès et de retrait** : Tout producteur peut se désinscrire gratuitement à tout moment via le menu USSD (« Option 9 : Se désinscrire ») ou par simple demande à son agent de vulgarisation.
 
+---
+
+## 7. Modélisation Biophysique & Bilan Hydrique (Steps E2, E3, E7)
+
+### 7.1 Évapotranspiration de Référence Hargreaves-Samani (1985)
+Adaptée aux zones tropicales sans station météo complète :
+$$ET_0 = 0.0023 \cdot R_a \cdot (T_{\text{mean}} + 17.8) \cdot \sqrt{T_{\text{max}} - T_{\text{min}}}$$
+Où :
+* $R_a$ est le rayonnement solaire extraterrestre journalier calculé selon la latitude du village (ex: $6.13^\circ\text{N}$ pour le Littoral à $10.86^\circ\text{N}$ pour Dapaong).
+* $T_{\text{max}}$, $T_{\text{min}}$, $T_{\text{mean}}$ en degrés Celsius issus d'Open-Meteo / ECMWF ou des générateurs stochastiques calibrés.
+
+### 7.2 Réservoir en Eau Facilement Utilisable (RAW / TAW)
+* **TAW (Total Available Water)** : $TAW = \text{TAW}_{\text{spécifique}} \times \text{profondeur enracinement (m)}$
+  * Terres de barre du Sud : $\approx 110\text{ mm/m}$ sur $0.60\text{ m} \to 66\text{ mm}$.
+  * Sols ferrugineux du Nord : $\approx 85\text{ mm/m}$ sur $0.50\text{ m} \to 42.5\text{ mm}$.
+* **RAW (Readily Available Water)** :
+  $$RAW = p \cdot TAW$$
+  Avec $p = 0.55$ pour le maïs et le sorgho au stade germination/levée.
+* **Bilan Journalier du Stock ($S_t$)** :
+  $$S_t = \min(TAW, \max(0, S_{t-1} + P_t - K_c \cdot ET_{0,t}))$$
+  Avec $K_c = 0.40$ au stade initial des semis (FAO-56).
+* Si $S_t < RAW \times 0.5$, un stress hydrique de levée est détecté.
+
+### 7.3 Simulation Post-Semis sur 21 Jours & Alerte Faux Départ
+* Tout avis `SEMER` simule les 21 jours suivant la date candidate.
+* Si le modèle détecte une séquence continue sans pluie $\ge 8\text{ jours}$ faisant chuter le stock sous $0.20 \times RAW$, le risque de faux départ passe à `RISQUE` et le semis est déconseillé.
+
+---
+
+## 8. Spécifications Télécoms & Pipeline Audio 2G (Steps E6, E9, E10)
+
+### 8.1 Contrainte GSM 03.38 pour l'USSD
+* Tout écran USSD doit respecter rigoureusement la limite maximale de **160 caractères** dans l'alphabet GSM 03.38 7-bit standard.
+* Aucun caractère spécial hors table (remplacement automatique des lettres accentuées ou caractères Unicode non reconnus par les combinés 2G d'entrée de gamme).
+
+### 8.2 Spécifications Voix Terroir 2G
+* **Échantillonnage** : 8 000 Hz / 16 000 Hz, mono PCM 16-bit.
+* **Filtre Téléphonique** : Passe-bande Butterworth 300 Hz – 3 400 Hz simulant les codecs vocaux GSM FR/AMR.
+* **Normalisation de Crête** : -1.0 dBFS pour éliminer la saturation sur petits haut-parleurs.
+* **Suppression des Silences** : Détection de seuil d'énergie (< -40 dBFS) en début et fin d'enregistrement.
+* **Validation Locuteurs Natifs** : Protocole d'évaluation humaine en 4 critères (/5) sur `/audio-eval` (clarté, naturel, authenticité d'accent, taux de compréhension immédiate).
+
+

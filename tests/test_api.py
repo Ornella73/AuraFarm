@@ -109,6 +109,17 @@ def test_radio_bulletin_generation():
     assert "BULLETIN RADIO COMMUNAUTAIRE" in bulletin["script_fr"]
     assert "AURAFARM RADIO" in bulletin["script_local"]
 
+def test_radio_bulletin_all_regions():
+    from src.dashboard.bulletin_generator import CommunityRadioBulletinGenerator
+    gen = CommunityRadioBulletinGenerator()
+    all_b = gen.generate_all_regions()
+    assert len(all_b) == 5
+    for reg in ["maritime", "plateaux", "centrale", "kara", "savanes"]:
+        assert reg in all_b
+        assert "script_fr" in all_b[reg]
+        assert "script_local" in all_b[reg]
+
+
 def test_backtest_benchmark_endpoint():
     bench = run_backtest()
     assert bench["total_tests"] >= 12

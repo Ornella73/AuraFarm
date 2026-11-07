@@ -82,13 +82,18 @@ pip install -r requirements.txt
 # Lancer l'API FastAPI et le serveur de diffusion
 python -m uvicorn src.api.main:app --reload --port 8000
 ```
-* **Simulateur USSD interactif** : Ouvrir `http://localhost:8000/ussd-simulator`
-* **Tableau de bord PWA Agents/Coopératives** : Ouvrir `http://localhost:8000/dashboard`
-* **Documentation OpenAPI** : Ouvrir `http://localhost:8000/docs`
+* **Tableau de bord PWA & Supervision LIVE** : `http://localhost:8000/dashboard`
+* **Simulateur Téléphone 2G (USSD & Audio)** : `http://localhost:8000/ussd-simulator`
+* **Studio d'Évaluation Vocale Terroir** : `http://localhost:8000/audio-eval`
+* **Cartographie & Météo des 5 Régions** : `http://localhost:8000/zones-overview`
+* **Enregistrement Audio Locutrices** : `http://localhost:8000/audio-recorder`
+* **Documentation OpenAPI Interactive** : `http://localhost:8000/docs`
+* **Script de Démonstration Jury (3 min)** : Voir [`DEMO_SCRIPT_3MIN.md`](file:///C:/Users/HP/Documents/AURAFARM/DEMO_SCRIPT_3MIN.md)
 
 ### Exécution des Tests
 ```bash
-python -m pytest tests/ -v
+# Exécution complète de la suite de tests (pytest)
+python -m pytest tests/ --ignore=tests/e2e -v
 ```
 
 ---
@@ -100,16 +105,22 @@ AURAFARM/
 ├── data/
 │   ├── villages_togo.csv        # 12 villages sentinelles sur les 5 régions du Togo
 │   ├── varieties_togo.csv       # Variétés maïs, sorgho, niébé homologuées ITRA
-│   └── soil_profiles.json       # Propriétés hydro-pédologiques (SoilGrids)
+│   ├── soil_profiles.json       # Propriétés hydro-pédologiques (SoilGrids)
+│   └── audio_phrase_bank.csv    # Banque de phrases modulaires en 4 langues
 ├── src/
-│   ├── core/                    # Configuration, sécurité, modèles et base SQLite
-│   ├── data_ingestion/          # Connecteurs météo, sol et watchdog fraîcheur
-│   ├── crop_models/             # Scoring de résilience variétale
-│   ├── alerts/                  # Moteur faux départ, incertitude & backtest
-│   ├── channels/                # Abstraction ChannelProvider, USSD, IVR, SMS
-│   ├── api/                     # Endpoints FastAPI pour webhooks et PWA
-│   └── dashboard/               # Interface PWA & génération bulletins radios
-├── tests/                       # Suite de tests unitaires et d'intégration
+│   ├── core/                    # Modèles, config, hachage HMAC et base SQLite
+│   ├── data_ingestion/          # Connecteurs CHIRPS/ECMWF, météo stochastique & profils zones
+│   ├── agro_climate/            # Bilan hydrique, Hargreaves-Samani ET0 & simulations What-If
+│   ├── crop_models/             # Scoring de résilience variétale (ITRA)
+│   ├── alerts/                  # Détecteur de début de saison & risque de faux départ
+│   ├── channels/                # Moteurs USSD (*384*228#), IVR, audio 2G & SMS
+│   ├── api/                     # Endpoints FastAPI pour webhooks, flux live et PWA
+│   └── dashboard/               # Vues HTML/Jinja2, fiches d'audit & bulletins radios
+├── static/
+│   ├── auracharts.js            # Moteur autonome de graphiques SVG hors-ligne (zéro CDN)
+│   └── fiche.css                # Styles des fiches de décision traçables
+├── tests/                       # Suite exhaustive de tests unitaires et d'intégration
+├── DEMO_SCRIPT_3MIN.md          # Script chronométré pour la présentation au jury
 ├── ASSUMPTIONS.md               # Cadre complet des hypothèses agro-climatiques
 ├── LICENSES.md                  # Attribution des données ouvertes
 └── README.md

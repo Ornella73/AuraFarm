@@ -1,0 +1,207 @@
+/* AuraFarm — Fiche Village × Culture CSS (4 Blocs Traçables) */
+
+.fiche-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    color: #1e293b;
+}
+
+.fiche-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    border-color: #cbd5e1;
+}
+
+/* BLOC D: Bandeau Alertes de Contrôle */
+.bloc-d-banner {
+    padding: 0.5rem 0.875rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-bottom: 1px solid transparent;
+}
+
+.banner-stale {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+}
+
+.banner-fallback {
+    background-color: #ffedd5;
+    color: #9a3412;
+    border-color: #fdba74;
+}
+
+.banner-contradiction {
+    background-color: #ffedd5;
+    color: #c2410c;
+    border-color: #fdba74;
+}
+
+.banner-rupture {
+    background-color: #fef9c3;
+    color: #854d0e;
+    border-color: #fde047;
+}
+
+.banner-simulation {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-color: #93c5fd;
+}
+
+.banner-ok {
+    background-color: #dcfce7;
+    color: #166534;
+    border-color: #86efac;
+}
+
+/* BLOC A: Entrées */
+.bloc-a-entries {
+    padding: 0.75rem 0.875rem;
+    background-color: #f8fafc;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.bloc-a-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.bloc-a-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.375rem;
+    font-size: 0.7rem;
+    color: #475569;
+}
+
+/* BLOC B: Calcul */
+.bloc-b-calc {
+    padding: 0.75rem 0.875rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.bloc-b-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.calc-metric {
+    background-color: #f1f5f9;
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.375rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.calc-label {
+    font-size: 0.65rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.calc-val {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #0f172a;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.triggered-rule-box {
+    background-color: #f8fafc;
+    border-left: 3px solid #3b82f6;
+    padding: 0.375rem 0.5rem;
+    border-radius: 0 0.375rem 0.375rem 0;
+    font-size: 0.7rem;
+    color: #1e293b;
+}
+
+/* BLOC C: Sortie */
+.bloc-c-output {
+    padding: 0.75rem 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.status-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    width: fit-content;
+}
+
+.status-semer {
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+.status-attendre {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.status-risque {
+    background-color: #ffedd5;
+    color: #c2410c;
+    border: 1px solid #fdba74;
+}
+
+.status-consulter {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.advice-quote {
+    background-color: #f8fafc;
+    border-left: 2px solid #10b981;
+    padding: 0.375rem 0.5rem;
+    font-style: italic;
+    color: #334155;
+    font-size: 0.7rem;
+}
+
+.channel-pill {
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.channel-pill.active {
+    background-color: #dcfce7;
+    color: #166534;
+}
+

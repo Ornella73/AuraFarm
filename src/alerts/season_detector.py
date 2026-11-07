@@ -4,6 +4,11 @@ from typing import Dict, List, Optional
 from dataclasses import dataclass
 from src.core.models import Village, SoilProfile, AlertStatus, ConfidenceLevel, Language, RegimePluvio
 from src.data_ingestion.weather_service import WeatherData
+from src.agro_climate.water_balance import (
+    SoilWaterReservoir,
+    simulate_post_sowing_21days,
+    calculate_hargreaves_samani_et0
+)
 
 @dataclass
 class SeasonAlertResult:
@@ -38,7 +43,8 @@ class SeasonDetector:
         soil: Optional[SoilProfile],
         weather: WeatherData,
         current_date: Optional[date] = None,
-        recommended_variety_name: str = "sélectionnée"
+        recommended_variety_name: str = "sélectionnée",
+        soil_water_reservoir: Optional[SoilWaterReservoir] = None
     ) -> SeasonAlertResult:
         cur_date = current_date or date.today()
         reasons: List[str] = []
@@ -58,6 +64,15 @@ class SeasonDetector:
             reasons.append(f"Sol à faible réserve utile ({soil.taw_mm_m:.0f} mm/m) : tolérance sécheresse réduite à {max_dry}j.")
 
         is_false_start = False
+
+        # Soil water balance reservoir setup
+        taw_m = soil.taw_mm_m if soil else 100.0
+        depth = soil.depth_cm if soil else 100.0
+        active_res = soil_water_reservoir or SoilWaterReservoir(
+            taw_mm_m=taw_m,
+            depth_cm=depth,
+            initial_fill_fraction=min(1.0, max(0.30, rain_3d / max(10.0, taw_m * (depth / 100.0))))
+        )
 
         # --- DECISION LOGIC ---
 
@@ -81,14 +96,46 @@ class SeasonDetector:
                 "Risque majeur de dessèchement des jeunes plantules."
             )
 
-        # Case 3: Sufficient trigger rain AND safe post-sowing forecast -> OPTIMAL SOWING
+        # Case 3: Sufficient trigger rain AND safe post-sowing forecast -> OPTIMAL SOWING WITH WATER BALANCE VERIFICATION
         elif rain_3d >= self.RAIN_3DAY_MIN_THRESHOLD_MM and dry_spell <= max_dry and forecast_7d >= 15.0:
-            status = AlertStatus.SEMER
-            confidence = ConfidenceLevel.SUR if weather.ground_obs_corrected else ConfidenceLevel.ASSEZ_SUR
-            reasons.append(
-                f"CONDITIONS OPTIMALES : Pluie efficace sur 3 jours ({rain_3d:.1f} mm ≥ 20 mm). "
-                f"Séquence sèche maximale prévue ({dry_spell}j ≤ {max_dry}j) et bon relais ({forecast_7d:.1f} mm prévus)."
-            )
+            # Check 21-day seedling root zone survival
+            post_sowing_risk = False
+            if weather.daily_forecast_rain and len(weather.daily_forecast_rain) >= 7:
+                post_eval = simulate_post_sowing_21days(
+                    reservoir=active_res,
+                    daily_rain=weather.daily_forecast_rain,
+                    daily_tmax=weather.daily_forecast_tmax,
+                    daily_tmin=weather.daily_forecast_tmin,
+                    latitude_deg=village.latitude,
+                    start_doy=cur_date.timetuple().tm_yday
+                )
+                if post_eval["is_false_start_risk"]:
+                    post_sowing_risk = True
+                    status = AlertStatus.RISQUE
+                    is_false_start = True
+                    confidence = ConfidenceLevel.ASSEZ_SUR
+                    reasons.append(
+                        f"FAUX DÉPART HYDRIQUE DÉTECTÉ : Dessèchement critique sous le point de flétrissement "
+                        f"({post_eval['min_soil_moisture_pct']:.1f}% de la réserve utile restante). "
+                        "Risque de mortalité des plantules dans les 21 jours post-semis."
+                    )
+
+            if not post_sowing_risk:
+                if active_res.soil_moisture_pct < 20.0:
+                    status = AlertStatus.ATTENDRE
+                    confidence = ConfidenceLevel.ASSEZ_SUR
+                    reasons.append(
+                        f"HUMIDITÉ DU SOL INSUFFISANTE : Le sol ne contient que {active_res.soil_moisture_pct:.0f}% "
+                        "de sa réserve utile malgré la pluie. Attendez une meilleure pénétration hydrique."
+                    )
+                else:
+                    status = AlertStatus.SEMER
+                    confidence = ConfidenceLevel.SUR if weather.ground_obs_corrected else ConfidenceLevel.ASSEZ_SUR
+                    reasons.append(
+                        f"CONDITIONS OPTIMALES : Pluie efficace sur 3 jours ({rain_3d:.1f} mm ≥ 20 mm). "
+                        f"Séquence sèche maximale prévue ({dry_spell}j ≤ {max_dry}j) et bon relais ({forecast_7d:.1f} mm prévus). "
+                        f"Humidité du sol estimée à {active_res.soil_moisture_pct:.0f}% de la réserve utile."
+                    )
 
         # Case 4: Insufficient trigger rain -> WAIT
         else:

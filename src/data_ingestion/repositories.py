@@ -113,6 +113,9 @@ class SpatialRepository:
     def get_variety(self, variety_id: str) -> Optional[Variety]:
         return self._varieties.get(variety_id)
 
+    def list_varieties(self) -> List[Variety]:
+        return list(self._varieties.values())
+
     def list_varieties_for_crop(self, crop: CropType) -> List[Variety]:
         return [v for v in self._varieties.values() if v.crop_type == crop]
 

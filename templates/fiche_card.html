@@ -1,0 +1,212 @@
+<!-- templates/fiche_card.html — Fiche Village × Culture AuraFarm (4 Blocs Traçables & Dataviz) -->
+<div class="fiche-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col transition hover:shadow-md hover:border-emerald-300" data-village-id="{{ f.village_id }}" data-crop="{{ f.crop_type }}" data-region="{{ f.region }}">
+
+    <!-- BLOC D : BANDEAU ALERTES DE CONTRÔLE (Ordre de priorité stricte) -->
+    <div class="bloc-d-banner {{ f.control_banner.css_class }}">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid {{ f.control_banner.icon }}"></i>
+            <span>{{ f.control_banner.label }}</span>
+        </div>
+        <span class="text-[10px] uppercase font-mono opacity-80">{{ f.control_banner.priority_tag }}</span>
+    </div>
+
+    <!-- EN-TÊTE LOCALITÉ & CONTEXTE -->
+    <div class="p-4 pb-2 border-b border-slate-100 flex items-start justify-between gap-2">
+        <div>
+            <div class="flex items-center gap-2">
+                <h3 class="font-extrabold text-slate-900 text-sm tracking-tight">{{ f.village_name }}</h3>
+                <span class="pcode font-mono text-[10px] text-slate-600 font-bold bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">{{ f.pcode }}</span>
+                <span class="text-[10px] font-extrabold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full uppercase">
+                    {{ f.crop_type }}
+                </span>
+            </div>
+            <p class="text-[11px] text-slate-500 font-medium mt-0.5">
+                Région <span class="font-bold text-slate-700">{{ f.region }}</span> &bull; {{ f.prefecture }} &bull; GPS: {{ f.coordinates }}
+            </p>
+        </div>
+        <div class="text-right">
+            <span class="text-[9px] text-slate-400 block font-mono">Calcul : {{ f.calculation_date }}</span>
+            <span class="text-[10px] font-bold text-slate-600 font-mono">Conf: {{ f.confidence }}</span>
+        </div>
+    </div>
+
+    <!-- BLOC C : SORTIE (Décision Immédiate, Statut & Variété ITRA) -->
+    <div class="bloc-c-output p-4 py-3 border-b border-slate-100 flex flex-col gap-2.5">
+        <!-- STATUT D'ALERTE PRINCIPAL -->
+        <div class="status-badge {{ f.status_css }} w-full py-2.5 px-3 rounded-xl flex items-center justify-between font-bold text-xs shadow-sm">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid {{ f.status_icon }} text-sm"></i>
+                <span class="tracking-wide uppercase">{{ f.status_label }}</span>
+            </div>
+            <span class="text-[10px] opacity-90 font-normal font-mono">
+                {% if f.alert_status == 'SEMER' %}Feu vert semis{% elif f.alert_status == 'RISQUE' %}Poche sèche {{ f.dry_spell_risk_days }}j{% elif f.alert_status == 'ATTENDRE_CONSULTER_AGENT' %}Sécurité active{% else %}Humidité insuffisante{% endif %}
+            </span>
+        </div>
+
+        <div class="bg-emerald-50/80 p-2.5 rounded-xl border border-emerald-200 text-xs flex justify-between items-center">
+            <div>
+                <span class="text-[10px] text-emerald-800 block font-bold uppercase tracking-wider">Variété homologuée ITRA :</span>
+                <strong class="text-slate-900 text-xs">{{ f.recommended_variety_name }}</strong>
+                <span class="text-slate-500 text-[11px]">({{ f.cycle_days }} j &bull; Résistance sécheresse: {{ f.drought_tolerance }})</span>
+            </div>
+            <span class="bg-white border border-emerald-300 text-emerald-800 px-2 py-0.5 rounded-md text-[10px] font-bold shadow-xs">
+                Certifiée ITRA
+            </span>
+        </div>
+
+        <!-- Advice Messages -->
+        <div class="flex flex-col gap-1.5">
+            <div class="advice-quote text-xs p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 italic">
+                "{{ f.advice_fr }}"
+            </div>
+            <div class="bg-emerald-950 text-emerald-200 p-2.5 rounded-xl text-xs font-mono">
+                <div class="flex items-center justify-between mb-1 text-[10px] text-emerald-400">
+                    <span class="font-bold uppercase">{{ f.langue_locale_name }} :</span>
+                    {% if f.is_translation_missing %}
+                    <span class="bg-red-600 text-white font-bold px-1.5 rounded">TRADUCTION MANQUANTE</span>
+                    {% else %}
+                    <span class="text-emerald-300">{{ f.audio_badge }}</span>
+                    {% endif %}
+                </div>
+                <div class="italic font-sans text-white">"{{ f.advice_local }}"</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOC LE BON MOMENT DE SEMIS (Fenêtre Optimale & Timeline) -->
+    <div class="p-4 py-3 border-b border-slate-100 bg-slate-50/70">
+        <div class="sowing-window-box p-3 rounded-xl border {{ f.sowing_box_css }} flex flex-col gap-2 shadow-xs">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold flex items-center gap-1.5 text-slate-800">
+                    <i class="fa-regular fa-calendar-check text-emerald-600"></i>
+                    <span>LE BON MOMENT DE SEMIS</span>
+                </span>
+                <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-md shadow-xs {{ f.sowing_pill_css }}">
+                    {{ f.sowing_window_label }}
+                </span>
+            </div>
+            <p class="text-[11px] font-medium leading-snug {{ f.sowing_advice_text_css }}">
+                {{ f.sowing_window_advice }}
+            </p>
+            
+            <!-- Timeline Visuelle d'Avancement de la Saison -->
+            <div class="flex flex-col gap-1 pt-1">
+                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden flex">
+                    <div class="bg-slate-300 h-full w-[25%]" title="Pré-saison (Avant plancher)"></div>
+                    <div class="{{ f.timeline_active_css }} h-full w-[50%]" title="Fenêtre optimale de semis"></div>
+                    <div class="bg-slate-300 h-full w-[25%]" title="Fin des pluies utiles"></div>
+                </div>
+                <div class="flex justify-between text-[9px] text-slate-500 font-mono">
+                    <span>Plancher : {{ f.floor_date }}</span>
+                    <span class="font-bold text-emerald-800">Fenêtre optimale</span>
+                    <span>Cessation des pluies</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOC GRAPHES & JAUGES HYDRO-CLIMATIQUES -->
+    <div class="p-4 py-3 border-b border-slate-100 flex flex-col gap-2.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Indicateurs Biophysiques & Météo</span>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+            
+            <!-- Jauge Humidité du Sol (% RAW) -->
+            <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col gap-1.5">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-slate-600 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-droplet text-blue-500"></i> Humidité Sol
+                    </span>
+                    <span class="font-extrabold text-xs" style="color: {{ f.soil_fill_color }};">{{ f.soil_moisture_pct }}%</span>
+                </div>
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full transition-all duration-500" style="width: {{ f.soil_fill_pct }}%; background-color: {{ f.soil_fill_color }};"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-500">
+                    <span>Rétention: <b>{{ f.soil_retention }}</b></span>
+                    <span>ET0: <b>{{ f.daily_et0_mm }} mm/j</b></span>
+                </div>
+            </div>
+
+            <!-- Pluie Cumulée & Sparkline 7 Jours -->
+            <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col gap-1.5">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-slate-600 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-cloud-rain text-indigo-500"></i> Pluie 3j : <b class="text-slate-900 ml-1">{{ f.rain_last_3days_mm }} mm</b>
+                    </span>
+                    <span class="text-[10px] font-mono text-slate-500">Prév: <b>{{ f.rain_forecast_7days_mm }} mm</b></span>
+                </div>
+                <!-- Sparkline SVG Bars -->
+                <div class="h-6 w-full flex items-end gap-1.5 bg-slate-100/70 p-1 rounded">
+                    {% for val in f.rain_sparkline %}
+                    <div class="flex-1 bg-indigo-500 hover:bg-indigo-700 rounded-t transition-all cursor-pointer" style="height: {{ [val * 5, 100]|min }}%; min-height: 2px;" title="Jour {{ loop.index }}: {{ val }} mm"></div>
+                    {% endfor %}
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-500">
+                    <span>Seuil: ≥ 20 mm</span>
+                    <span class="{% if f.dry_spell_risk_days > f.dry_spell_threshold %}text-red-600 font-bold{% else %}text-slate-600{% endif %}">Séquence sèche: {{ f.dry_spell_risk_days }}j</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Température & Stress Thermique -->
+        <div class="flex items-center justify-between text-xs p-2 bg-slate-50 rounded-xl border border-slate-200">
+            <span class="text-slate-700 flex items-center gap-1.5 font-medium">
+                <i class="fa-solid fa-temperature-half {% if f.tmax_forecast_3days_c > 35.0 %}text-red-500{% else %}text-amber-500{% endif %}"></i>
+                Tmax prévue : <strong class="{% if f.tmax_forecast_3days_c > 35.0 %}text-red-700{% else %}text-slate-900{% endif %}">{{ f.tmax_forecast_3days_c }} °C</strong>
+            </span>
+            {% if f.tmax_forecast_3days_c > 35.0 %}
+            <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-200">🔥 Stress thermique (&gt; 35°C)</span>
+            {% else %}
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">🍃 Climat propice</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- BLOC B : CALCUL & RÈGLES AGRO-CLIMATIQUES DÉCLENCHÉES (Traçabilité) -->
+    <div class="bloc-b-calc p-4 py-3 bg-slate-50/50 border-b border-slate-100 flex flex-col gap-2 text-xs">
+        <div class="bloc-b-grid grid grid-cols-2 gap-2 text-[11px]">
+            <div class="calc-metric bg-white p-2 rounded-lg border border-slate-200">
+                <span class="calc-label text-[10px] text-slate-400 block">Pluie 3j / Seuil</span>
+                <span class="calc-val font-bold text-slate-800">{{ f.rain_last_3days_mm }} mm <span class="text-slate-400 text-[9px] font-normal">/ ≥20 mm</span></span>
+            </div>
+            <div class="calc-metric bg-white p-2 rounded-lg border border-slate-200">
+                <span class="calc-label text-[10px] text-slate-400 block">Prév. 7j / Seuil</span>
+                <span class="calc-val font-bold text-slate-800">{{ f.rain_forecast_7days_mm }} mm <span class="text-slate-400 text-[9px] font-normal">/ ≥15 mm</span></span>
+            </div>
+            <div class="calc-metric bg-white p-2 rounded-lg border border-slate-200">
+                <span class="calc-label text-[10px] text-slate-400 block">Séquence sèche max</span>
+                <span class="calc-val font-bold {% if f.dry_spell_risk_days > f.dry_spell_threshold %}text-red-600{% else %}text-slate-800{% endif %}">
+                    {{ f.dry_spell_risk_days }} j <span class="text-slate-400 text-[9px] font-normal">/ max {{ f.dry_spell_threshold }}j</span>
+                </span>
+            </div>
+            <div class="calc-metric bg-white p-2 rounded-lg border border-slate-200">
+                <span class="calc-label text-[10px] text-slate-400 block">Tmax prévue (3j)</span>
+                <span class="calc-val font-bold text-slate-800">{{ f.tmax_forecast_3days_c }} °C</span>
+            </div>
+        </div>
+
+        <!-- Règle Déclenchée -->
+        <div class="triggered-rule-box p-2 bg-white rounded-lg border border-slate-200 flex flex-col gap-0.5">
+            <span class="text-[9px] text-slate-400 uppercase font-mono font-bold">Règle agro-climatique déclenchée :</span>
+            <span class="font-semibold text-slate-800 text-[11px] leading-tight">{{ f.triggered_rule }}</span>
+        </div>
+    </div>
+
+    <!-- BLOC A : ENTRÉES & SOURCES DE DONNÉES (Audit & Conformité) -->
+    <div class="bloc-a-entries p-4 py-2.5 bg-slate-100/60 mt-auto flex flex-col gap-1.5 text-[10px] text-slate-500">
+        <div class="bloc-a-header flex justify-between items-center">
+            <span class="font-mono">Calcul : {{ f.calculation_datetime }} &bull; Sol : <b>{{ f.soil_source }}</b></span>
+            <span>Source Pluie : <b>{{ f.rain_source }}</b> ({{ f.rain_source_date }})</span>
+        </div>
+        <div class="flex justify-between items-center pt-1 border-t border-slate-200/60">
+            <div class="flex items-center gap-1.5">
+                <span class="channel-pill bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold">USSD *384*228#</span>
+                <span class="channel-pill bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold">Voix IVR</span>
+            </div>
+            <span class="font-mono text-slate-400">Relevés villageois : {{ f.village_readings_summary }}</span>
+        </div>
+    </div>
+
+</div>

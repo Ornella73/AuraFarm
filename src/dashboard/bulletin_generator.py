@@ -1,17 +1,25 @@
 """Community Radio Bulletin Generator for extension agents and local radio broadcasts."""
 from datetime import date
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from src.core.models import Language, AlertStatus, CropType, RegimePluvio
 from src.core.database import get_precalculated_sheet
 from src.data_ingestion.repositories import SpatialRepository
 
 class CommunityRadioBulletinGenerator:
-    """Generates weekly agricultural radio scripts in French, Éwé, and Kabiyè.
+    """Generates weekly agricultural radio scripts in French, Éwé, Kabiyè, and Mina.
     Enables broadcasting vital climate warnings to illiterate farmers without phones.
     """
 
     def __init__(self, repo: Optional[SpatialRepository] = None):
         self.repo = repo or SpatialRepository()
+
+    def generate_all_regions(self, broadcast_date: Optional[date] = None) -> Dict[str, Any]:
+        """Generate bulletins across all 5 agro-ecological regions in Togo."""
+        regions = ["Maritime", "Plateaux", "Centrale", "Kara", "Savanes"]
+        return {
+            r.lower(): self.generate_regional_bulletin(r, broadcast_date=broadcast_date)
+            for r in regions
+        }
 
     def generate_regional_bulletin(self, region: str, broadcast_date: Optional[date] = None) -> Dict[str, Any]:
         """Generate structured radio bulletin for a specific Togolese region."""
@@ -35,8 +43,12 @@ class CommunityRadioBulletinGenerator:
         # 1. French Broadcast Script
         script_fr = self._build_french_script(region, b_date, sheets, count_semer, count_risque)
 
-        # 2. Local Language Broadcast Script (Éwé for South, Kabiyè for North)
-        if region.lower() in ["maritime", "plateaux"]:
+        # 2. Local Language Broadcast Script (Éwé/Mina for South, Kabiyè for North)
+        reg_lower = region.lower()
+        if reg_lower == "maritime":
+            script_local_lang = Language.MINA
+            script_local = self._build_mina_script(region, b_date, sheets, count_semer, count_risque)
+        elif reg_lower == "plateaux":
             script_local_lang = Language.EWE
             script_local = self._build_ewe_script(region, b_date, sheets, count_semer, count_risque)
         else:
@@ -136,5 +148,29 @@ class CommunityRadioBulletinGenerator:
             "",
             "Ye ŋsɔɔlaa se ŋnɩɩ tɔm ndʊ tɛŋ fɛɛŋ kaŋkaŋ kɔyɔ, yaa 90 00 00 00 yaa ŋma *384*228#.",
             "Ɛsɔ ɛwazɩ mɩ haɖɛ !"
+        ])
+        return "\n".join(lines)
+
+    def _build_mina_script(self, region: str, b_date: date, sheets: list, count_semer: int, count_risque: int) -> str:
+        lines = [
+            f"=== AURAFARM RADIO GBEFÃ — {region.upper()} (MINA) ===",
+            "Kɔsiɖa sia ƒe gbefã le ICAT kple ITRA ƒe dɔwɔwɔ dzi.",
+            "",
+            "Agbledolawo, mise agbledede ƒe gbe kple nuxɔxlɔ̃wo :",
+        ]
+        if count_risque > 0:
+            lines.append("⚠️ NUXƆXLƆ̃ : Faux départ le vavãm le agblea me :")
+            for v, s in sheets:
+                if s.alert_status == AlertStatus.RISQUE:
+                    lines.append(f"- {v.village_name} me : Migado nuku o ! Kuɖiɖi gbɔna tsi la gblɔm.")
+        if count_semer > 0:
+            lines.append("🌱 NYƆNA WOATEŊ ADO NUKU :")
+            for v, s in sheets:
+                if s.alert_status == AlertStatus.SEMER:
+                    lines.append(f"- {v.village_name} me : Miado {s.crop_type.value}. Variété nyuitɔe nye {s.recommended_variety_name}.")
+        lines.extend([
+            "",
+            "Ne èdi be yea se gbeɖiɖi faa le ka dzi la, bipe 90 00 00 00 alo zi *384*228# dzi.",
+            "Mawu nayra miaƒe agble !"
         ])
         return "\n".join(lines)

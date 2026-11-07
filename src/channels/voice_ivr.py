@@ -17,6 +17,9 @@ class VoiceIvrEngine:
     # Base audio repository URL (can be local static or S3/CDN)
     AUDIO_BASE_URL = "/static/audio"
 
+    def __init__(self, audio_registry: Optional[Any] = None):
+        self.audio_registry = audio_registry
+
     def generate_ivr_playlist(self, sheet: PrecalculatedSheet, language: Language) -> VoicePlaylist:
         """Assemble structured audio files for playback."""
         lang_code = language.value
@@ -107,22 +110,41 @@ class VoiceIvrEngine:
                     "Tapez 1 pour réécouter. Tapez 2 pour contacter votre conseiller agricole."
                 )
 
-    def generate_twiml(self, sheet: PrecalculatedSheet, language: Language, host_url: str = "") -> str:
-        """Generate Twilio/SIP standard TwiML XML for outbound voice call execution."""
+    def generate_twiml(self, sheet: PrecalculatedSheet, language: Language, host_url: str = "", force_play: Optional[str] = None) -> str:
+        """Generate Twilio/SIP standard TwiML XML for outbound voice call execution with Play/Say fallback."""
         playlist = self.generate_ivr_playlist(sheet, language)
         transcript = playlist.text_transcript
 
-        # TwiML with <Gather> for DTMF interactivity
+        content_tag = f'<Say voice="Polly.Mathieu" language="fr-FR">{transcript}</Say>'
+        if force_play:
+            content_tag = f'<Play>{force_play}</Play>'
+
         twiml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <Response>
     <Gather numDigits="1" action="{host_url}/api/ivr/dtmf?village={sheet.village_id}&amp;crop={sheet.crop_type.value}&amp;lang={language.value}" method="POST" timeout="6">
-        <Say voice="Polly.Mathieu" language="fr-FR">{transcript}</Say>
+        {content_tag}
     </Gather>
     <!-- If no DTMF pressed, repeat once and hang up -->
-    <Say voice="Polly.Mathieu" language="fr-FR">{transcript}</Say>
+    {content_tag}
     <Hangup/>
 </Response>"""
         return twiml
+
+    def generate_handset_preview(self, sheet: PrecalculatedSheet, language: Language) -> Dict[str, Any]:
+        """Generate telephone bandpass preview metadata (300-3400 Hz, 8kHz mono G.711)."""
+        playlist = self.generate_ivr_playlist(sheet, language)
+        return {
+            "language": language.value,
+            "village_id": sheet.village_id,
+            "transcript": playlist.text_transcript,
+            "estimated_duration_sec": playlist.estimated_duration_sec,
+            "telephone_filter": {
+                "sample_rate_hz": 8000,
+                "channels": 1,
+                "bandpass_hz": "300 - 3400 Hz",
+                "codec": "G.711u / AMR-NB"
+            }
+        }
 
     def handle_dtmf_input(self, digit: str, village_id: str, crop: CropType, language: Language) -> str:
         """Handle farmer pressing '1' (replay) or '2' (agent connection)."""

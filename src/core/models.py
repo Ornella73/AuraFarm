@@ -108,3 +108,78 @@ class FieldRainObservation(BaseModel):
     reporter_type: str = "farmer"  # "farmer" | "agent"
     reported_at: str
 
+class MonthlyClimateNorm(BaseModel):
+    month: int
+    rain_mean_mm: float
+    rain_days: float
+    tmin_mean_c: float
+    tmax_mean_c: float
+    p_wet_given_dry: float
+    p_wet_given_wet: float
+    gamma_shape: float
+    gamma_scale: float
+
+class VillageSoilSummary(BaseModel):
+    village_id: str
+    village_name: str
+    texture: str
+    taw_mm_m: float
+    depth_cm: float
+    drainage: str
+
+class ZoneProfile(BaseModel):
+    zone_id: str
+    zone_name: str
+    regime: RegimePluvio
+    annual_rainfall_mean_mm: float
+    annual_rainfall_std_mm: float
+    season_1_earliest_sowing_date: str
+    season_2_earliest_sowing_date: Optional[str] = None
+    season_2_status: Optional[str] = None  # ex: "a_valider" pour bimodal
+    false_start_probability_baseline: float
+    soil_default_taw_mm_m: float
+    soil_default_depth_cm: float
+    soil_default_drainage: str
+    monthly_climate: List[MonthlyClimateNorm]
+    sentinel_villages: List[VillageSoilSummary] = Field(default_factory=list)
+
+class DailySimulatedRecord(BaseModel):
+    date: str
+    month: int
+    day_of_year: int
+    rainfall_mm: float
+    is_rain_day: bool
+    tmin_c: float
+    tmax_c: float
+    potential_et0_mm: float
+    soil_water_depletion_mm: Optional[float] = None
+
+class SowingWindowResult(BaseModel):
+    village_id: str
+    village_name: str
+    crop_type: CropType
+    variety_id: str
+    variety_name: str
+    cycle_days: int
+    window_start: str
+    window_end: str
+    best_sowing_date: str
+    season_rain_cessation_date: str
+    false_start_probability_pct: float
+    confidence: ConfidenceLevel
+    water_satisfaction_index_pct: float
+    reasons: List[str] = Field(default_factory=list)
+
+class WaterBalanceStatus(BaseModel):
+    village_id: str
+    taw_mm: float
+    current_water_mm: float
+    soil_moisture_pct: float
+    is_at_wilting_point: bool
+    daily_et0_mm: float
+    sufficient_for_sowing: bool
+    post_sowing_21d_false_start_risk: bool
+    details: str
+
+
+

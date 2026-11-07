@@ -1,0 +1,59 @@
+phrase_id,category,french_text,ewe_text,kabiye_text,mina_text,word_count_fr,notes
+status_semer,status,SEMEZ dès maintenant vos semences.,Tsi dza nyuie. Miateŋu adó bli fífíia.,Tɛʊ nɩwa camɩyɛ. Ɩpɩzɩɣ ɩdʊ tɛtʊ fɛɛŋ.,Tsi dza nyuie. Miateŋu adó ku fifiia.,5,Information essentielle d'abord. Brouillons locaux non validés.
+status_attendre,status,ATTENDEZ. La pluie est encore insuffisante.,Tsi la mede o. Miegandó ku kaba o.,Tɛʊ tatasɩ nɩʊ camɩyɛ. Ɩɖaŋ pazɩ.,Tsi mede o. Midzudzɔ migadó ku dodo o.,6,Ton calme et posé.
+status_risque,status,ATTENTION RISQUE. Longue séquence sèche prévue.,Nyanyui kple nuxɔxlɔ̃. Kuɖiɖi le vavam.,Kalaŋgbaŋʊ. Wɩsɩ kaɣ lɩʊ pɩkɔɔ pɩtala.,Kpɔ nyuie. Kuɖiɖi gbɔna ŋkeke geɖe.,6,Alerte forte.
+status_securite_stale,status,Données météo non actualisées. Consultez votre agent.,Mielala vie boŋ. Miabia gbedela ICAT gbɔ.,Ɩɖaŋ pazɩ. Ɩpɔzɩ ICAT tʊmɩyɛ tʊ.,Midzudzɔ kpoo. Miabia afɔdola ICAT tɔgbɔ.,7,Consigne stricte de sauvegarde.
+crop_mais,crop,Culture du maïs.,Bli dɔwɔwɔ.,Mɩsɩ haɖɛ.,Bli dɔwɔwɔ.,3,Nom de culture.
+crop_sorgho,crop,Culture du sorgho.,Fɔ̃fɔ̃ dɔwɔwɔ.,Kazaŋga haɖɛ.,Sorgho dɔwɔwɔ.,3,Nom de culture.
+crop_niebe,crop,Culture du niébé.,Ayiyi dɔwɔwɔ.,Kɔɔnɛɛ haɖɛ.,Ayiyi dɔwɔwɔ.,3,Nom de culture légumineuse.
+variety_tzee_w_sr,variety,Variété TZEE-W-SR. Cycle extra-précoce quatre-vingts jours.,TZEE-W-SR nuku. Ŋkeke blaenyi pɛ.,TZEE-W-SR pɩlɩʊ. Kɩyakɩŋ nɩɩnʊwa nɛ hiŋ naadozo.,TZEE-W-SR nuku. Ŋkeke blaenyi koŋ.,6,Cultivar ITRA maïs blanc.
+variety_sotubaka,variety,Variété Sotubaka. Cycle intermédiaire cent jours.,Sotubaka nuku. Ŋkeke alafa ɖeka.,Sotubaka pɩlɩʊ. Kɩyakɩŋ mɩnʊʊ.,Sotubaka nuku. Ŋkeke alafa ɖeka.,6,Cultivar ITRA maïs blanc.
+variety_ikenne,variety,Variété Ikenne. Maïs jaune cent jours.,Ikenne nuku. Bli dzẽ ŋkeke alafa.,Ikenne pɩlɩʊ. Mɩsɩ sʊtʊ kɩyakɩŋ mɩnʊʊ.,Ikenne nuku. Bli dzẽ ŋkeke alafa.,6,Cultivar ITRA maïs jaune.
+variety_tzb_sr,variety,Variété TZB-SR. Cycle long cent quinze jours.,TZB-SR nuku. Ŋkeke alafa kple wuiatɔ.,TZB-SR pɩlɩʊ. Kɩyakɩŋ mɩnʊʊ nɛ hiu nɛ kagbaanzɩ.,TZB-SR nuku. Ŋkeke alafa kple wuiatɔ.,7,Cultivar ITRA maïs tardif.
+variety_sorvato_28,variety,Variété Sorvato vingt-huit. Sorgho blanc résistant.,Sorvato blaove-vɔ-enyi nuku nyui.,Sorvato nɩɩnʊwa nɛ padozo pɩlɩʊ kɩbaŋʊ.,Sorvato blaove-vɔ-enyi nuku nyui.,6,Sorgho blanc ITRA.
+variety_chokwe,variety,Variété Chokwe. Sorgho rouge adapté aux Savanes.,Chokwe nuku. Fɔ̃fɔ̃ dzĩ nyui.,Chokwe pɩlɩʊ. Kazaŋga kɩsɛɛmʊʊ kɩbaŋʊ.,Chokwe nuku. Fɔ̃fɔ̃ dzĩ nyui.,7,Sorgho rouge ITRA/ICRISAT.
+variety_tvx_3236,variety,Variété TVx 3236. Niébé très résistant.,TVx 3236 nuku. Ayiyi sesẽ nyuie.,TVx 3236 pɩlɩʊ. Kɔɔnɛɛ ɖoŋ ñɩŋʊ.,TVx 3236 nuku. Ayiyi sesẽ nyuie.,6,Niébé ITRA.
+variety_it99k,variety,Variété IT99K. Niébé extra-précoce soixante jours.,IT99K nuku. Ayiyi ŋkeke blaade.,IT99K pɩlɩʊ. Kɔɔnɛɛ kɩyakɩŋ nɩɩdozo.,IT99K nuku. Ayiyi ŋkeke blaade.,6,Niébé extra-précoce ITRA/IITA.
+conf_sur,confidence,Indice de confiance : très sûr.,Kakaɖedzi : enyo ŋutɔ.,Taabalɩyɛ : pɩtɛm kɛʊ camɩyɛ.,Kakaɖedzi : enyo ŋutɔ.,6,Niveau 1 certitude.
+conf_assez_sur,confidence,Indice de confiance : assez sûr.,Kakaɖedzi : esɔgbɔ vie.,Taabalɩyɛ : pɩwɛ camɩyɛ pazɩ.,Kakaɖedzi : esɔgbɔ vie.,6,Niveau 2 certitude.
+conf_incertain,confidence,Indice de confiance : incertain. Consultez votre agent.,Kakaɖedzi mele eme o. Bia gbedela.,Pɩtɛm kɛʊ camɩyɛ. Pɔzɩ tʊmɩyɛ tʊ.,Kakaɖedzi mele eme o. Bia afɔdola.,8,Niveau 3 certitude.
+delay_in_days,delay,Dans {X} jours.,Le ŋkeke {X} megbe.,Pɩkaɣ kpaɣʊ kɩyakɩŋ {X}.,Le ŋkeke {X} gbe.,3,Modularité délai temporel.
+delay_dry_spell,delay,Séquence sèche de {X} jours consécutifs.,Kuɖiɖi le ŋkeke {X} me.,Wɩsɩ kaɣ lɩʊ kɩyakɩŋ {X}.,Kuɖiɖi le ŋkeke {X} me.,6,Séquence sans pluie.
+rain_mm,measurement,{X} millimètres de pluie enregistrés.,Tsi dza milimɛta {X}.,Tɛʊ nɩwa milimɛta {X}.,Tsi dza milimɛta {X}.,5,Mesure pluviomètre.
+prompt_intro,instruction,"Bonjour. Ici AuraFarm, votre conseiller agricole gratuit.",Ndi na mi. AuraFarm gbeɖiɖie nye esia.,Taabalɩyɛ. AuraFarm haɖaʊ tɔm kɩbaŋtʊ kɛnɛ.,Ndi na mi. AuraFarm gbeɖiɖie nye esia.,8,Salutation introductive.
+action_replay,instruction,Tapez un pour réécouter ce message vocal.,Zi ɖeka dzi be na ga sea gbeɖiɖi.,Naza kʊɖʊmʊʊ se ŋtassɩ nɩʊ.,Zi ɖeka dzi be na ga sea gbeɖiɖi.,8,Instruction touche 1.
+action_agent,instruction,Tapez deux pour parler à votre conseiller ICAT.,Zi eve dzi be nàƒo nu kple gbedela.,Naza naalɛ se ŋyɔɔdɩna tʊmɩyɛ tʊ.,Zi eve dzi be nàƒo nu kple afɔdola.,8,Instruction touche 2.
+action_hangup,instruction,Merci d'avoir écouté AuraFarm. Bonne campagne agricole.,Akpe na mi. Mawu nayra miaƒe agbledede.,Ɛsɔ ɛwazɩ mɩ haɖɛ taa. Ɛsɔ kɛlɛ.,Akpe na mi. Mawu nayra mi.,8,Clôture d'appel.
+num_0,number,Zéro.,Gbeɖee.,Kpaa.,Gbeɖee.,1,Chiffre.
+num_1,number,Un.,Ɖeka.,Kʊɖʊm.,Ɖeka.,1,Chiffre.
+num_2,number,Deux.,Eve.,Naalɛ.,Eve.,1,Chiffre.
+num_3,number,Trois.,Etɔ̃.,Naadozo.,Etɔ̃.,1,Chiffre.
+num_4,number,Quatre.,Enɛ.,Naanza.,Enɛ.,1,Chiffre.
+num_5,number,Cinq.,Atɔ̃.,Kagbaanzɩ.,Atɔ̃.,1,Chiffre.
+num_6,number,Six.,Ade.,Ludozo.,Ade.,1,Chiffre.
+num_7,number,Sept.,Adre.,Lubɛ.,Adre.,1,Chiffre.
+num_8,number,Huit.,Enyi.,Lutozo.,Enyi.,1,Chiffre.
+num_9,number,Neuf.,Asieke.,Nakʊ.,Asieke.,1,Chiffre.
+num_10,number,Dix.,Ewo.,Hiu.,Ewo.,1,Nombre.
+num_11,number,Onze.,Wuiɖeka.,Hiu nɛ kʊɖʊm.,Wuiɖeka.,1,Nombre.
+num_12,number,Douze.,Wuieve.,Hiu nɛ naalɛ.,Wuieve.,1,Nombre.
+num_13,number,Treize.,Wuietɔ̃.,Hiu nɛ naadozo.,Wuietɔ̃.,1,Nombre.
+num_14,number,Quatorze.,Wuienɛ.,Hiu nɛ naanza.,Wuienɛ.,1,Nombre.
+num_15,number,Quinze.,Wuiatɔ̃.,Hiu nɛ kagbaanzɩ.,Wuiatɔ̃.,1,Nombre.
+num_16,number,Seize.,Wuiade.,Hiu nɛ ludozo.,Wuiade.,1,Nombre.
+num_17,number,Dix-sept.,Wuiadre.,Hiu nɛ lubɛ.,Wuiadre.,1,Nombre.
+num_18,number,Dix-huit.,Wuienyi.,Hiu nɛ lutozo.,Wuienyi.,1,Nombre.
+num_19,number,Dix-neuf.,Wuiasieke.,Hiu nɛ nakʊ.,Wuiasieke.,1,Nombre.
+num_20,number,Vingt.,Blaeve.,Hiŋ naalɛ.,Blaeve.,1,Nombre.
+num_21,number,Vingt et un.,Blaeve-vɔ-ɖeka.,Hiŋ naalɛ nɛ kʊɖʊm.,Blaeve-vɔ-ɖeka.,3,Nombre.
+num_22,number,Vingt-deux.,Blaeve-vɔ-eve.,Hiŋ naalɛ nɛ naalɛ.,Blaeve-vɔ-eve.,1,Nombre.
+num_23,number,Vingt-trois.,Blaeve-vɔ-etɔ̃.,Hiŋ naalɛ nɛ naadozo.,Blaeve-vɔ-etɔ̃.,1,Nombre.
+num_24,number,Vingt-quatre.,Blaeve-vɔ-enɛ.,Hiŋ naalɛ nɛ naanza.,Blaeve-vɔ-enɛ.,1,Nombre.
+num_25,number,Vingt-cinq.,Blaeve-vɔ-atɔ̃.,Hiŋ naalɛ nɛ kagbaanzɩ.,Blaeve-vɔ-atɔ̃.,1,Nombre.
+num_26,number,Vingt-six.,Blaeve-vɔ-ade.,Hiŋ naalɛ nɛ ludozo.,Blaeve-vɔ-ade.,1,Nombre.
+num_27,number,Vingt-sept.,Blaeve-vɔ-adre.,Hiŋ naalɛ nɛ lubɛ.,Blaeve-vɔ-adre.,1,Nombre.
+num_28,number,Vingt-huit.,Blaeve-vɔ-enyi.,Hiŋ naalɛ nɛ lutozo.,Blaeve-vɔ-enyi.,1,Nombre.
+num_29,number,Vingt-neuf.,Blaeve-vɔ-asieke.,Hiŋ naalɛ nɛ nakʊ.,Blaeve-vɔ-asieke.,1,Nombre.
+num_30,number,Trente.,Blaetɔ̃.,Hiŋ naadozo.,Blaetɔ̃.,1,Nombre.
+num_31,number,Trente et un.,Blaetɔ̃-vɔ-ɖeka.,Hiŋ naadozo nɛ kʊɖʊm.,Blaetɔ̃-vɔ-ɖeka.,3,Nombre calendrier.
+
